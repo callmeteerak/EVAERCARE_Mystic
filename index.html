@@ -31,25 +31,25 @@
   <tbody id="sell-table">
     <tr>
       <td>ใบเบิกไม้กวาด</td>
-      <td>100</td>
+      <td class="price">100</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>หินแก่นเวทย์</td>
-      <td>1000</td>
+      <td class="price">1000</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>ผ้าเช็ด</td>
-      <td>300</td>
+      <td class="price">300</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>บัตรแต่งรถ</td>
-      <td>3000</td>
+      <td class="price">3000</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
@@ -70,25 +70,25 @@
   <tbody id="buy-table">
     <tr>
       <td>ใบเบิกไม้กวาด</td>
-      <td>2500</td>
+      <td class="price">2500</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>หินแก่นเวทย์</td>
-      <td>7500</td>
+      <td class="price">7500</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>ผ้าเช็ด</td>
-      <td>3000</td>
+      <td class="price">3000</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
     <tr>
       <td>บัตรแต่งรถ</td>
-      <td>2000</td>
+      <td class="price">20000</td>
       <td><input type="number" value="0" onchange="calculate()"></td>
       <td class="sum">0</td>
     </tr>
@@ -102,23 +102,27 @@ function calculate() {
   let totalBuy = 0;
 
   document.querySelectorAll("#sell-table tr").forEach(row => {
-    const price = parseFloat(row.cells[1].textContent);
+    const priceCell = row.cells[1];
+    const price = parseFloat(priceCell.textContent.replace(/,/g, ''));
     const qty = parseInt(row.cells[2].querySelector("input").value) || 0;
     const sum = price * qty;
-    row.cells[3].textContent = sum;
+    priceCell.textContent = price.toLocaleString();
+    row.cells[3].textContent = sum.toLocaleString();
     totalSell += sum;
   });
 
   document.querySelectorAll("#buy-table tr").forEach(row => {
-    const price = parseFloat(row.cells[1].textContent);
+    const priceCell = row.cells[1];
+    const price = parseFloat(priceCell.textContent.replace(/,/g, ''));
     const qty = parseInt(row.cells[2].querySelector("input").value) || 0;
     const sum = price * qty;
-    row.cells[3].textContent = sum;
+    priceCell.textContent = price.toLocaleString();
+    row.cells[3].textContent = sum.toLocaleString();
     totalBuy += sum;
   });
 
-  document.getElementById("total-sell").textContent = totalSell;
-  document.getElementById("total-buy").textContent = totalBuy;
+  document.getElementById("total-sell").textContent = totalSell.toLocaleString();
+  document.getElementById("total-buy").textContent = totalBuy.toLocaleString();
 }
 </script>
 
